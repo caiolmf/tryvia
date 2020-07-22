@@ -16,3 +16,8 @@
 .FeedbackScreen .ranking-status > img {
   width: 15vh;
 }
+
+.FeedbackScreen .final-result {
+  display: flex;
+  flex-flow: row;
+}

@@ -8,7 +8,7 @@
 }
 
 .App-logo {
-  height: 80px;
+  height: 8vh;
   pointer-events: none;
 }
 
@@ -89,11 +89,11 @@
   width: 130px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: shake infinite 0.82s cubic-bezier(.36,.07,.19,.97) both;
   }
-}
+} */
 
 .App-header {
   align-items: center;
@@ -102,7 +102,7 @@
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
-  height: 30vh;
+  height: 12vh;
   justify-content: center;
 }
 

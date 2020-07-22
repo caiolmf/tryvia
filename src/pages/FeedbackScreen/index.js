@@ -39,8 +39,8 @@ class FeedbackScreen extends Component {
   renderMessage = (assertions) => (
     <div>
       <div className="ranking-status">
-        <img src={Medal} alt="In rank medal" />
-        <h2>Você está no Ranking!</h2>
+        <img src={Medal} alt="In rank medal" className="animate__animated animate__bounceIn" />
+        <h2 className="animate__animated animate__fadeIn">Você está no topo Ranking!</h2>
       </div>
       <h2 data-testid="feedback-text">{assertions >= 3 ? messages.goodAssertion : messages.badAssertion}</h2>
     </div>
@@ -54,12 +54,15 @@ class FeedbackScreen extends Component {
 
     return (
       <div className="FeedbackScreen">
-        <Header />
+        {/* <Header /> */}
         {this.renderMessage(assertions)}
-        <ScoreBoard questions="5" assertions={assertions} score={score} />
+        <div className="final-result">
+          <ScoreBoard title="Hits" maxValue="5" value={assertions} />
+          <ScoreBoard title="Score" maxValue="300" value={score} />
+        </div>
         <Button
           isDisabled={false}
-          data-testid="btn-play-again"
+          data-testid="btn-go-home"
           onClick={() => this.handleNewGame()}
         >
           Jogar Novamente
@@ -67,11 +70,6 @@ class FeedbackScreen extends Component {
         <Link to="/ranking">
           <Button isDisabled={false} data-testid="btn-ranking">
             Ver Raking
-          </Button>
-        </Link>
-        <Link to="/">
-          <Button isDisabled={false} data-testid="btn-go-home">
-            Voltar para o início
           </Button>
         </Link>
       </div>

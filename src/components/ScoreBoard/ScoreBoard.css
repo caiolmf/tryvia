@@ -5,6 +5,10 @@
   flex-flow: column;
 }
 
+.ScoreBoard .title {
+  text-align: center;
+}
+
 .ScoreBoard .score {
   font-size: 40px;
   font-weight: 800;

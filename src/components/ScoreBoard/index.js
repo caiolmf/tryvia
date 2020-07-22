@@ -9,32 +9,28 @@ class ScoreBoard extends Component {
   }
 
   handleAssertion = () => {
-    const { questions, assertions } = this.props;
-    const assertionRate = Math.round((assertions * 100) / questions);
+    const { questions, value } = this.props;
+    const assertionRate = Math.round((value * 100) / questions);
 
     document.querySelector('.value-bar').style.transform = `rotate(${assertionRate * 3.6}deg)`;
     if (assertionRate > 50) document.querySelector('.progress-circle').classList.add('over50');
   };
 
   render() {
-    const { questions, assertions, score } = this.props;
+    const { title, maxValue, value } = this.props;
 
     return (
       <div className="ScoreBoard">
-        <div data-testid="feedback-total-question" className="invisible">{assertions}</div>
+        <div data-testid="feedback-total-question" className="invisible">{value}</div>
         <section>
-          <h2>Hits</h2>
+          <h2 className="title">{title}</h2>
           <div className="progress-circle">
-            <span>{`${assertions}/${questions}`}</span>
+            <span>{`${value}/${maxValue}`}</span>
             <div className="left-half-clipper">
               <div className="first50-bar" />
               <div className="value-bar" />
             </div>
           </div>
-        </section>
-        <section>
-          <h2>Score</h2>
-          <span data-testid="feedback-total-score" className="score">{score}</span>
         </section>
       </div>
     );
@@ -42,9 +38,8 @@ class ScoreBoard extends Component {
 }
 
 ScoreBoard.propTypes = {
-  score: Proptypes.number.isRequired,
-  assertions: Proptypes.number.isRequired,
-  questions: Proptypes.objectOf(Proptypes.string).isRequired,
+  value: Proptypes.number.isRequired,
+  maxValue: Proptypes.objectOf(Proptypes.string).isRequired,
 };
 
 export default ScoreBoard;

@@ -14,6 +14,12 @@ const messages = {
   badAssertion: 'Podia ser melhor...',
 };
 
+const difficultyValues = {
+  hard: 3,
+  medium: 2,
+  easy: 1,
+}
+
 class FeedbackScreen extends Component {
   constructor(props) {
     super(props);
@@ -25,9 +31,8 @@ class FeedbackScreen extends Component {
 
   componentDidMount() {
     const { name, score, picture } = this.props;
-
     const actualRanking = loadFromLocalStorage('ranking') ? loadFromLocalStorage('ranking') : [];
-    console.log(actualRanking);
+
     actualRanking.push({ name, score, picture });
     saveToLocalStorage('ranking', actualRanking);
   }
@@ -40,7 +45,7 @@ class FeedbackScreen extends Component {
     <div>
       <div className="ranking-status">
         <img src={Medal} alt="In rank medal" className="animate__animated animate__bounceIn" />
-        <h2 className="animate__animated animate__fadeIn">Você está no topo Ranking!</h2>
+        <h2 className="animate__animated animate__fadeIn">You are on TOP 5!</h2>
       </div>
       <h2 data-testid="feedback-text">{assertions >= 3 ? messages.goodAssertion : messages.badAssertion}</h2>
     </div>
@@ -48,7 +53,8 @@ class FeedbackScreen extends Component {
 
   render() {
     const { playAgain } = this.state;
-    const { score, assertions } = this.props;
+    const { score, assertions, difficulty } = this.props;
+    const maxScore = (difficulty) ? (10 + (30 * difficultyValues[difficulty])) * 5 : 350;
 
     if (playAgain) return <Redirect to="/" />;
 
@@ -58,7 +64,7 @@ class FeedbackScreen extends Component {
         {this.renderMessage(assertions)}
         <div className="final-result">
           <ScoreBoard title="Hits" maxValue="5" value={assertions} />
-          <ScoreBoard title="Score" maxValue="300" value={score} />
+          <ScoreBoard title="Score" maxValue={maxScore} value={score} />
         </div>
         <Button
           isDisabled={false}
@@ -80,6 +86,7 @@ class FeedbackScreen extends Component {
 const mapStateToProps = (state) => ({
   score: state.userDataReducer.player.score,
   assertions: state.userDataReducer.player.assertions,
+  difficulty: state.settingsReducer.settings.difficulty,
   name: state.userDataReducer.player.name,
   picture: state.userDataReducer.picture,
 });
